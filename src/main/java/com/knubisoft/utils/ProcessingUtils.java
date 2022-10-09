@@ -11,6 +11,13 @@ import java.util.List;
 
 public class ProcessingUtils {
 
+    /**
+     * Generates result using all methods.
+     *
+     * @param input1 First image.
+     * @param input2 Second image.
+     * @return Processed image.
+     */
     public BufferedImage generateResultImage(BufferedImage input1, BufferedImage input2) {
         List<Point> points = new ArrayList<>();
         List<List<Point>> groups = new ArrayList<>();
@@ -22,6 +29,13 @@ public class ProcessingUtils {
         return input2;
     }
 
+    /**
+     * Finds different points.
+     *
+     * @param input1 First image.
+     * @param input2 Second image.
+     * @param points List of points.
+     */
     private void findPoints(BufferedImage input1, BufferedImage input2, List<Point> points) {
         int w1 = input1.getWidth();
         int h1 = input1.getHeight();
@@ -38,6 +52,12 @@ public class ProcessingUtils {
         }
     }
 
+    /**
+     * Builds group by points distance.
+     *
+     * @param points List of points.
+     * @param groups List of groups.
+     */
     private void buildGroup(List<Point> points, List<List<Point>> groups) {
         Comparator<Point> comparator = Comparator.comparingInt(Point::getX);
         points.sort(comparator);
@@ -56,10 +76,25 @@ public class ProcessingUtils {
         }
     }
 
+    /**
+     * Calculates distance between different points.
+     *
+     * @param x X of first point.
+     * @param y Y of first point.
+     * @param x1 X of second point.
+     * @param y1 Y of second point.
+     * @return Distance.
+     */
     private double calculateDistance(int x, int y, int x1, int y1) {
         return Math.sqrt(Math.pow(x - x1, 2) + Math.pow(y - y1, 2));
     }
 
+    /**
+     * Merges groups.
+     *
+     * @param groups List of groups.
+     * @param group Group.
+     */
     private void mergeGroups(List<List<Point>> groups, List<Point> group) {
         boolean flag = false;
 
@@ -85,6 +120,12 @@ public class ProcessingUtils {
         }
     }
 
+    /**
+     * Builds rectangle of groups.
+     *
+     * @param input2 Image to process.
+     * @param groups List of groups.
+     */
     private void buildRectangle(BufferedImage input2, List<List<Point>> groups) {
         for (List<Point> list : groups) {
             int mostLeft = Integer.MAX_VALUE;
@@ -103,7 +144,21 @@ public class ProcessingUtils {
         }
     }
 
-    private void highlightRectangle(BufferedImage input2, int mostLeftPoint, int mostTop, int mostBottom, int mostRightPoint) {
+    /**
+     * Highlights rectangle with red line.
+     *
+     * @param input2 Image to highlight.
+     * @param mostLeftPoint Extreme left point.
+     * @param mostTop Extreme top point.
+     * @param mostBottom Extreme bottom point.
+     * @param mostRightPoint Extreme right point.
+     */
+    private void highlightRectangle(BufferedImage input2,
+                                    int mostLeftPoint,
+                                    int mostTop,
+                                    int mostBottom,
+                                    int mostRightPoint) {
+
         int width = mostRightPoint - mostLeftPoint;
         int height = mostBottom - mostTop;
 

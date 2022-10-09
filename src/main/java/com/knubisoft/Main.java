@@ -11,8 +11,8 @@ import java.io.File;
 public class Main {
     @SneakyThrows
     public static void main(String[] args) {
-        BufferedImage input1 = ImageIO.read(new File("src/main/resources/image-1.png"));
-        BufferedImage input2 = ImageIO.read(new File("src/main/resources/image-2.png"));
+        BufferedImage input1 = ImageIO.read(new File("src/main/resources/images/image-1.png"));
+        BufferedImage input2 = ImageIO.read(new File("src/main/resources/images/image-2.png"));
 
         ImageIO.write(new ProcessingUtils().generateResultImage(input1, input2), "jpg", new File("src/main/resources/image-res.png"));
     }
